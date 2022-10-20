@@ -1,7 +1,6 @@
 # ////////////////////////////////////////////////////////////////
 # //                     IMPORT STATEMENTS                      //
 # ////////////////////////////////////////////////////////////////
-
 import math
 import sys
 import time
@@ -23,15 +22,15 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.clock import Clock
 from kivy.animation import Animation
 from functools import partial
-from kivy.config import Config
 from kivy.core.window import Window
 from pidev.kivy import DPEAButton
 from pidev.kivy import PauseScreen
 from time import sleep
-import RPi.GPIO as GPIO 
+import RPi.GPIO as GPIO
 from pidev.stepper import stepper
 from pidev.Cyprus_Commands import Cyprus_Commands_RPi as cyprus
 
+print('1')
 
 # ////////////////////////////////////////////////////////////////
 # //                      GLOBAL VARIABLES                      //
@@ -54,6 +53,9 @@ RAMP_LENGTH = 725
 # //            DECLARE APP CLASS AND SCREENMANAGER             //
 # //                     LOAD KIVY FILE                         //
 # ////////////////////////////////////////////////////////////////
+
+print('2')
+
 class MyApp(App):
     def build(self):
         self.title = "Perpetual Motion"
@@ -67,15 +69,20 @@ cyprus.open_spi()
 # ////////////////////////////////////////////////////////////////
 # //                    SLUSH/HARDWARE SETUP                    //
 # ////////////////////////////////////////////////////////////////
+
+print('3')
+
 sm = ScreenManager()
 ramp = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20,
              steps_per_unit=200, speed=INIT_RAMP_SPEED)
+
+print('4')
 
 # ////////////////////////////////////////////////////////////////
 # //                       MAIN FUNCTIONS                       //
 # //             SHOULD INTERACT DIRECTLY WITH HARDWARE         //
 # ////////////////////////////////////////////////////////////////
-	
+
 # ////////////////////////////////////////////////////////////////
 # //        DEFINE MAINSCREEN CLASS THAT KIVY RECOGNIZES        //
 # //                                                            //
@@ -100,19 +107,19 @@ class MainScreen(Screen):
 
     def toggleStaircase(self):
         print("Turn on and off staircase here")
-        
+
     def toggleRamp(self):
         print("Move ramp up and down here")
-        
+
     def auto(self):
         print("Run through one cycle of the perpetual motion machine")
-        
+
     def setRampSpeed(self, speed):
         print("Set the ramp speed and update slider text")
-        
+
     def setStaircaseSpeed(self, speed):
         print("Set the staircase speed and update slider text")
-        
+
     def initialize(self):
         print("Close gate, stop staircase and home ramp here")
 
@@ -121,16 +128,19 @@ class MainScreen(Screen):
         self.ids.staircase.color = YELLOW
         self.ids.ramp.color = YELLOW
         self.ids.auto.color = BLUE
-    
+
     def quit(self):
         print("Exit")
         MyApp().stop()
+
+print('5')
 
 sm.add_widget(MainScreen(name = 'main'))
 
 # ////////////////////////////////////////////////////////////////
 # //                          RUN APP                           //
 # ////////////////////////////////////////////////////////////////
-
 MyApp().run()
 cyprus.close_spi()
+
+print('6')
